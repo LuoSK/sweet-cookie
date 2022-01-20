@@ -1,7 +1,7 @@
 {
   "name": "Sweet Cookie",
   "description": "Sweet Cookie",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "manifest_version": 3,
   "action": {
     "default_popup": "popup.html",
@@ -17,5 +17,11 @@
     "32": "/assets/icons/icon_32.png",
     "64": "/assets/icons/icon_64.png",
     "128": "/assets/icons/icon_128.png"
-  }
+  },
+  "permissions": [
+    "cookies"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ]
 }
