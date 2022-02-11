@@ -3,7 +3,7 @@ const html = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 module.exports = {
   entry: {
-    popup: './src/popup/index.js'
+    popup: './src/popup/main.js'
   },
   output: {
     filename: '[name].js',
@@ -28,7 +28,8 @@ module.exports = {
   plugins: [
     new html({
       template: './src/popup/index.html',
-      filename: 'popup.html'
+      filename: 'popup.html',
+      chunks: ['popup']
     }),
     new CleanWebpackPlugin()
   ],
@@ -36,7 +37,7 @@ module.exports = {
     static: {
       directory: path.resolve(__dirname, 'dist')
     },
-    open: true,
+    open: false,
     host: '127.0.0.1',
     port: 8080,
     compress: true
