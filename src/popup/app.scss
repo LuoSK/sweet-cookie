@@ -1,0 +1,15 @@
+.app {
+  .version {
+    cursor: pointer;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .test {
+    font-size: 24px;
+
+    .version {
+      color: red;
+    }
+  }
+}
