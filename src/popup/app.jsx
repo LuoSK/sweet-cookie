@@ -5,7 +5,7 @@ import NewVersion from './views/newVersion'
 import styles from './app.scss'
 export default class App extends Component {
   render() {
-    const [isNew, setIsNew] = useState(true)
+    const [isNew, setIsNew] = useState(false)
 
     function changeVersion() {
       setIsNew(!isNew)
@@ -13,7 +13,7 @@ export default class App extends Component {
 
     return (
       <div className={styles.app}>
-        <div className={styles.test} onClick={changeVersion}>
+        <div onClick={changeVersion}>
           <span className={styles.version}>
             使用{isNew ? '旧版' : '新版'}
           </span>

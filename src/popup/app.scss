@@ -1,4 +1,7 @@
 .app {
+  width: 400px;
+  min-height: 300px;
+
   .version {
     cursor: pointer;
     display: flex;
@@ -6,8 +9,6 @@
   }
 
   .test {
-    font-size: 24px;
-
     .version {
       color: red;
     }
