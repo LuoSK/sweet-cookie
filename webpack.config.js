@@ -1,6 +1,7 @@
 const path = require('path')
 const html = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const MainfestVersionSyncPlugin = require('webpack-manifest-version-sync')
 const cssGlobalRegex = /\.global\.css$/i
 const cssModuleRegex = /\.css$/i
 const sassGlobalRegex = /\.global\.s[ac]ss$/i
@@ -104,7 +105,8 @@ module.exports = {
       filename: 'popup.html',
       chunks: ['popup']
     }),
-    new CleanWebpackPlugin()
+    new CleanWebpackPlugin(), 
+    new MainfestVersionSyncPlugin() // 同步package版本号
   ],
   devServer: {
     static: {
