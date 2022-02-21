@@ -1,13 +1,19 @@
 const path = require('path')
+const isDev = process.env.NODE_ENV === 'development'
+
 const html = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-const MainfestVersionSyncPlugin = require('webpack-manifest-version-sync')
+const CopyPlugin = require('copy-webpack-plugin')
+
+const MainfestVersionSyncPlugin = require('webpack-manifest-version-sync-plugin')
 const cssGlobalRegex = /\.global\.css$/i
 const cssModuleRegex = /\.css$/i
 const sassGlobalRegex = /\.global\.s[ac]ss$/i
 const sassModuleRegex = /\.s[ac]ss$/i
 
+
 module.exports = {
+  devtool: 'cheap-module-source-map',
   entry: {
     popup: './src/popup/main.js'
   },
@@ -28,7 +34,9 @@ module.exports = {
         test: /\.jsx?$/i,
         exclude: /node_modules/,
         use: [
-          'babel-loader'
+          {
+            loader: 'babel-loader',
+          }
         ],
       },
       {
@@ -105,15 +113,31 @@ module.exports = {
       filename: 'popup.html',
       chunks: ['popup']
     }),
-    new CleanWebpackPlugin(), 
+    new CleanWebpackPlugin(),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: './src/manifest.json',
+          to: './manifest.json'
+        },
+        {
+          from: './src/assets',
+          to: './assets'
+        }
+      ]
+    }),
     new MainfestVersionSyncPlugin() // 同步package版本号
   ],
   devServer: {
+    hot: true,
     static: {
-      directory: path.resolve(__dirname, 'dist')
+      watch: false
     },
     open: false,
-    host: '127.0.0.1',
+    host: 'localhost',
+    devMiddleware: {
+      writeToDisk: true,
+    },
     port: 8080,
     compress: true
   }

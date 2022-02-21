@@ -4,7 +4,8 @@
   "description": "",
   "main": "cookies.js",
   "scripts": {
-    "start": "webpack serve -c webpack.config.js --mode development",
+    "dev:pages": "cross-env NODE_ENV=development webpack serve -c webpack.config.js --mode development",
+    "debug": "cross-env NODE_ENV=development node --inspect --inspect-brk node_modules/webpack/bin/webpack.js -c webpack.config.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -26,6 +27,8 @@
     "@babel/preset-env": "^7.16.11",
     "babel-loader": "^8.2.3",
     "clean-webpack-plugin": "^4.0.0",
+    "copy-webpack-plugin": "^10.2.4",
+    "cross-env": "^7.0.3",
     "css-loader": "^6.6.0",
     "html-webpack-plugin": "^5.5.0",
     "sass": "^1.49.7",
