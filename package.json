@@ -19,6 +19,9 @@
   },
   "homepage": "https://github.com/LuoSK/sweet-cookie#readme",
   "dependencies": {
+    "@emotion/react": "^11.8.1",
+    "@emotion/styled": "^11.8.1",
+    "@mui/material": "^5.4.2",
     "preact": "^10.6.5"
   },
   "devDependencies": {
@@ -26,6 +29,7 @@
     "@babel/plugin-transform-react-jsx": "^7.16.7",
     "@babel/preset-env": "^7.16.11",
     "babel-loader": "^8.2.3",
+    "babel-plugin-import": "^1.13.3",
     "clean-webpack-plugin": "^4.0.0",
     "copy-webpack-plugin": "^10.2.4",
     "cross-env": "^7.0.3",

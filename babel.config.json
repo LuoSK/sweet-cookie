@@ -18,6 +18,24 @@
         "pragma": "h",
         "pragmaFrag": "Fragment"
       }
+    ],
+    [
+      "import",
+      {
+        "libraryName": "@mui/material",
+        "libraryDirectory": "",
+        "camel2DashComponentName": false
+      },
+      "material"
+    ],
+    [
+      "import",
+      {
+        "libraryName": "@mui/icons-material",
+        "libraryDirectory": "",
+        "camel2DashComponentName": false
+      },
+      "icons-material"
     ]
   ]
 }
