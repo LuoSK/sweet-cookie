@@ -1,4 +1,12 @@
-
 .newVersion {
-  font-family: 'Righteous', Helvetica, Tahoma, sans-serif;
+  // font-family: 'Righteous', Helvetica, Tahoma, sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .toogleButtonGroup {
+    :global(.MuiToggleButton-root) {
+      line-height: 1;
+    }
+  }
 }

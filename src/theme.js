@@ -1,57 +1,105 @@
-import { ThemeOptions } from '@material-ui/core/styles/createMuiTheme';
 
 export const themeOptions = {
   palette: {
     type: 'light',
     primary: {
       main: '#ff9930',
-      contrastText: 'rgba(255,251,251,0.87)',
+      dark: '#f9a651',
+      contrastText: '#fbfbfb',
     },
     secondary: {
       main: '#f54500',
+      dark: '#f76a33',
     },
     info: {
       main: '#647cff',
-    },
+      dark: '#8396ff',
+    }
   },
-  props: {
+  shadows: 'none',
+  components: {
     MuiButton: {
-      size: 'small',
+      defaultProps: {
+        size: 'small',
+        variant: 'contained'
+      }
     },
     MuiButtonGroup: {
-      size: 'small',
+      defaultProps: {
+        size: 'small'
+      }
     },
     MuiCheckbox: {
-      size: 'small',
+      defaultProps: {
+        size: 'small'
+      }
     },
     MuiFab: {
-      size: 'small',
+      defaultProps: {
+        size: 'small'
+      }
     },
     MuiFormControl: {
-      margin: 'dense',
-      size: 'small',
+      defaultProps: {
+        size: 'small',
+        margin: 'dense'
+      }
     },
     MuiFormHelperText: {
-      margin: 'dense',
+      defaultProps: {
+        size: 'small'
+      }
     },
     MuiIconButton: {
-      size: 'small',
+      defaultProps: {
+        margin: 'dense'
+      }
     },
     MuiInputBase: {
-      margin: 'dense',
+      defaultProps: {
+        size: 'small'
+      }
+    },
+    MuiIconButton: {
+      defaultProps: {
+        size: 'small'
+      }
+    },
+    MuiIconButton: {
+      defaultProps: {
+        size: 'small'
+      }
+    },
+    MuiInputBase: {
+      defaultProps: {
+        margin: 'dense'
+      }
     },
     MuiInputLabel: {
-      margin: 'dense',
+      defaultProps: {
+        margin: 'dense'
+      }
     },
     MuiRadio: {
-      size: 'small',
+      defaultProps: {
+        size: 'small'
+      }
     },
     MuiSwitch: {
-      size: 'small',
+      defaultProps: {
+        size: 'small'
+      }
     },
     MuiTextField: {
-      margin: 'dense',
-      size: 'small',
+      defaultProps: {
+        margin: 'dense',
+        size: 'small'
+      }
     },
-  },
-};
+    MuiToggleButtonGroup: {
+      defaultProps: {
+        size: 'small'
+      }
+    }
+  }
+}

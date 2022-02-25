@@ -134,7 +134,7 @@ module.exports = {
       watch: false
     },
     open: false,
-    host: 'localhost',
+    host: '127.0.0.1',
     devMiddleware: {
       writeToDisk: true,
     },

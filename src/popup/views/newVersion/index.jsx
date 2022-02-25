@@ -1,17 +1,38 @@
 import { h, Component } from 'preact'
-import { Button } from '@mui/material'
+import { useState } from 'preact/hooks'
+
+import { ToggleButtonGroup, ToggleButton } from '@mui/material'
 import styles from './index.scss'
 export default class NewVersion extends Component {
   render() {
+    const [mode, setMode] = useState('JSON')
+    const onModeChange = (e, value) => {
+      setMode(value)
+    }
     return (
       <div className={styles.newVersion}>
-        <h1 className='title'>New Version</h1>
-        <div className='version'>123123</div>
-        <div className='test'>test</div>
-        <p>This is a simple example of a popup.</p>
-        <Button variant="text">Text</Button>
-        <Button variant="contained">Contained</Button>
-        <Button variant="outlined">Outlined</Button>
+        <ToggleButtonGroup
+          exclusive
+          color="primary"
+          className={styles.toogleButtonGroup}
+          value={mode}
+          onChange={onModeChange}
+        >
+          <ToggleButton value="KEY-VALUE">键值对</ToggleButton>
+          <ToggleButton value="JSON">JSON</ToggleButton>
+        </ToggleButtonGroup>
+        <div>
+          <ToggleButtonGroup
+            exclusive
+            color="primary"
+            value={mode}
+            onChange={onModeChange}
+          >
+            <ToggleButton value="KEY-VALUE">键值对</ToggleButton>
+            <ToggleButton value="JSON">JSON</ToggleButton>
+          </ToggleButtonGroup>
+        </div>
+
       </div >
     )
   }
