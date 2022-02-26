@@ -1,16 +1,23 @@
 .app {
   width: 400px;
-  min-height: 300px;
+  border: 1px solid #c3c3c3;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding: 8px;
 
   .version {
-    cursor: pointer;
     display: flex;
     justify-content: flex-end;
+    position: absolute;
+    right: 8px;
+
+    :global(.MuiButton-text) {
+      line-height: 1;
+    }
   }
 
-  .test {
-    .version {
-      color: red;
-    }
+  .container {
+    flex: 1;
   }
 }

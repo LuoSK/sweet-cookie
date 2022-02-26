@@ -8,7 +8,7 @@ export default class OldVersion extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      domain: '123123',
+      domain: '',
     }
   }
   render() {
@@ -52,7 +52,7 @@ export default class OldVersion extends Component {
     }
 
     return (
-      <div class="main">
+      <div className={styles.main}>
         <label for="cookie">cookie: </label>
         <input type="text" name="cookie" class={styles.cookieInput} value={cookieVal} onChange={(e) => setCookieVal(e.target.value)} />
         <br />

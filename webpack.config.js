@@ -85,7 +85,16 @@ module.exports = {
               sourceMap: true,
             }
           },
-          'sass-loader'
+          'sass-loader',
+          {
+            loader: 'sass-resources-loader',
+            options: {
+              resources: [
+                path.resolve(__dirname, 'src/assets/styles/reset.scss'),
+                path.resolve(__dirname, 'src/assets/styles/variables.scss'),
+              ]
+            }
+          }
         ]
       },
       {
@@ -102,7 +111,16 @@ module.exports = {
               }
             }
           },
-          'sass-loader'
+          'sass-loader',
+          {
+            loader: 'sass-resources-loader',
+            options: {
+              resources: [
+                path.resolve(__dirname, 'src/assets/styles/reset.scss'),
+                path.resolve(__dirname, 'src/assets/styles/variables.scss'),
+              ]
+            }
+          }
         ]
       }
     ]
@@ -134,7 +152,6 @@ module.exports = {
       watch: false
     },
     open: false,
-    host: '127.0.0.1',
     devMiddleware: {
       writeToDisk: true,
     },
