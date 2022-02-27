@@ -15,6 +15,7 @@ import {
 import { DeleteTwoTone } from '@mui/icons-material';
 import { TEXTAREA_PLACEHOLDER } from '../../../constants'
 import styles from './index.scss'
+import docCookies from '../utils/cookie'
 
 const expireOptions = [
   { label: '1天', value: 1 },
@@ -30,23 +31,93 @@ const columns = [
   { field: 'action', headerName: '操作', align: 'center' }
 ]
 
-const cookieData = [{
-  id: 1,
-  key: 'name',
-  value: 'John Doe',
-  expire: 1
-}]
 export default class NewVersion extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      domain: ''
+    }
+  }
   render() {
     const [mode, setMode] = useState('KEY_VALUE')
-    const [placeholder, setPlaceholder] = useState(TEXTAREA_PLACEHOLDER[mode])
     const onModeChange = (e, value) => {
       if (value == null) return
       setMode(value)
       setPlaceholder(TEXTAREA_PLACEHOLDER[value])
     }
+
+    const [placeholder, setPlaceholder] = useState(TEXTAREA_PLACEHOLDER[mode])
+
+    const [cookieVal, setCookieVal] = useState('erp=luoshaokang;token=123456789;')
+
+    const [cookieData, setCookieData] = useState([])
+
+    const onExpireChange = (e, index) => {
+      cookieData[index].expire = e.target.value
+      setCookieData([...cookieData])
+    }
+
+    const onParseClick = () => {
+      const newCookieData = []
+      let cookies = {}
+      switch (mode) {
+        case 'KEY_VALUE':
+          cookies = docCookies.parse(cookieVal)
+          break
+        case 'JSON':
+          try {
+            cookies = JSON.parse(cookieVal)
+          } catch (error) {
+
+          }
+          break
+        default:
+          break
+      }
+      if (Object.keys(cookies).length > 0) {
+        for (let key in cookies) {
+          newCookieData.push({
+            key,
+            value: cookies[key],
+            expire: 30
+          })
+        }
+      }
+      if (newCookieData.length > 0) {
+        setCookieData([...newCookieData])
+        setCookieBtnVisible(true)
+        alert('解析成功')
+      } else {
+        alert('未解析到cookie')
+      }
+    }
+
+
+    const [cookieBtnVisible, setCookieBtnVisible] = useState(false)
+
+    const setCookie = async () => {
+      try {
+        const domains = this.state.domain.split('.')
+        const setDomain = (domains.length > 2 ? domains.slice(1) : domains).join('.')
+        for (const item of cookieData) {
+          const expire = item.expire * 24 * 60 * 60 * 1000
+          await chrome.cookies.set({
+            domain: setDomain,
+            name: item.key,
+            value: item.value.toString(),
+            url: `https://${this.state.domain}/`,
+            secure: true,
+            sameSite: 'no_restriction',
+            expirationDate: Date.now() + expire
+          })
+        }
+        alert('successed')
+      } catch (error) {
+        alert(error)
+      }
+    }
     return (
-      <div className={styles.newVersion}>
+      <div className={styles.newVersion} >
         <ToggleButtonGroup
           exclusive
           color="primary"
@@ -59,15 +130,20 @@ export default class NewVersion extends Component {
         </ToggleButtonGroup>
 
         <textarea
+          value={cookieVal}
           className={styles.textarea}
           placeholder={placeholder}
+          onChange={(e) => setCookieVal(e.target.value)}
         />
-        <Button variant='text'>解析</Button>
+
+        <Button variant='text' onClick={onParseClick}>解析</Button>
+
+
         <Table size="small" className={styles.table}>
           <TableHead>
             <TableRow>
               {
-                columns.map(({ field, headerName, width, align }) => (
+                columns.map(({ headerName, width, align }) => (
                   <TableCell sx={{ width }} align={align}>{headerName}</TableCell>
                 ))
               }
@@ -75,7 +151,7 @@ export default class NewVersion extends Component {
           </TableHead>
           <TableBody>
             {
-              cookieData.map(({ key, value, expire }) => (
+              cookieData.map(({ key, value, expire }, index) => (
                 <TableRow key={key}>
                   <TableCell>
                     <TextField variant="standard" value={key} />
@@ -84,7 +160,7 @@ export default class NewVersion extends Component {
                     <TextField variant="standard" value={value} />
                   </TableCell>
                   <TableCell>
-                    <TextField variant="standard" select defaultValue={30} value={expire} >
+                    <TextField variant="standard" select defaultValue={30} value={expire} onChange={(e) => { onExpireChange(e, index) }}>
                       {
                         expireOptions.map((options) => (
                           <MenuItem key={options.value} value={options.value}>{options.label}</MenuItem>
@@ -100,26 +176,19 @@ export default class NewVersion extends Component {
             }
           </TableBody>
         </Table>
-        {/* <Box
-          autoComplete="off"
-          sx={{
-            '& .MuiTextField-root': { m: 1, width: '29%' },
-            '& .MuiInputBase-root': { padding: '0px 4px', color: '#524A4E' }
-          }}>
 
-          <TextField variant="standard">          </TextField>
-          <TextField variant="standard">
+        {cookieBtnVisible ? <Button variant='text' onClick={setCookie}>设置Cookie</Button> : null}
 
-          </TextField>
-          <TextField variant="standard" select>
-            {
-              expireOptions.map((options) => (
-                <MenuItem key={options.value} value={options.value}>{options.label}</MenuItem>
-              ))
-            }
-          </TextField>
-        </Box> */}
       </div >
     )
+  }
+  async componentWillMount() {
+    try {
+      let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+      if (tab?.url) {
+        let url = new URL(tab.url);
+        this.setState({ domain: url.hostname })
+      }
+    } catch { }
   }
 }

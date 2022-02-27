@@ -8,7 +8,7 @@ export default class OldVersion extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      domain: '',
+      domain: ''
     }
   }
   render() {
@@ -34,6 +34,7 @@ export default class OldVersion extends Component {
       try {
         const domains = this.state.domain.split('.')
         const setDomain = (domains.length > 2 ? domains.slice(1) : domains).join('.')
+        console.log('%c [ setDomain ]-37', 'font-size:13px; background:pink; color:#bf2c9f;', setDomain)
 
         for (let key in cookieObj) {
           await chrome.cookies.set({
@@ -72,11 +73,9 @@ export default class OldVersion extends Component {
 
   async componentWillMount() {
     let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-    console.log('%c [ tab ]-73', 'font-size:13px; background:pink; color:#bf2c9f;', tab)
     if (tab?.url) {
       try {
         let url = new URL(tab.url);
-        console.log('%c [ url ]-77', 'font-size:13px; background:pink; color:#bf2c9f;', url)
         this.setState({ domain: url.hostname })
       } catch { }
     }
