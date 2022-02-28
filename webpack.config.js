@@ -25,7 +25,9 @@ module.exports = {
     extensions: ['.js', '.jsx', '.css', '.scss'],
     alias: {
       react: 'preact/compat',
-      'react-dom': 'preact/compat'
+      'react-dom': 'preact/compat',
+      '@': path.resolve(__dirname, 'src'),
+      '@components': path.resolve(__dirname, 'src/components'),
     }
   },
   module: {

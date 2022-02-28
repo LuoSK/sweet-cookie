@@ -10,9 +10,12 @@ import {
   TextField,
   ToggleButton,
   ToggleButtonGroup,
-  MenuItem
+  MenuItem,
+  IconButton
 } from '@mui/material'
 import { DeleteTwoTone } from '@mui/icons-material';
+
+import { Toast } from '@/components'
 import { TEXTAREA_PLACEHOLDER } from '../../../constants'
 import styles from './index.scss'
 import docCookies from '../utils/cookie'
@@ -52,9 +55,11 @@ export default class NewVersion extends Component {
 
     const [cookieData, setCookieData] = useState([])
 
-    const onExpireChange = (e, index) => {
-      cookieData[index].expire = e.target.value
-      setCookieData([...cookieData])
+    const onFieldChange = (e, index, field) => {
+      cookieData[index][field] = e.target.value
+      setTimeout(() => {
+        setCookieData([...cookieData])
+      })
     }
 
     const onParseClick = () => {
@@ -86,9 +91,9 @@ export default class NewVersion extends Component {
       if (newCookieData.length > 0) {
         setCookieData([...newCookieData])
         setCookieBtnVisible(true)
-        alert('解析成功')
+        Toast.success('解析成功')
       } else {
-        alert('未解析到cookie')
+        Toast.error('解析失败')
       }
     }
 
@@ -111,13 +116,15 @@ export default class NewVersion extends Component {
             expirationDate: Date.now() + expire
           })
         }
-        alert('successed')
+        Toast.success('successed')
       } catch (error) {
-        alert(error)
+        Toast.error(error)
       }
     }
+
     return (
       <div className={styles.newVersion} >
+        {/* <button onClick={() => { Toast.success('hahah2222ah') }}>click</button> */}
         <ToggleButtonGroup
           exclusive
           color="primary"
@@ -138,45 +145,48 @@ export default class NewVersion extends Component {
 
         <Button variant='text' onClick={onParseClick}>解析</Button>
 
+        <div component="form">
 
-        <Table size="small" className={styles.table}>
-          <TableHead>
-            <TableRow>
+          <Table size="small" className={styles.table}>
+            <TableHead>
+              <TableRow>
+                {
+                  columns.map(({ headerName, width, align }) => (
+                    <TableCell sx={{ width }} align={align}>{headerName}</TableCell>
+                  ))
+                }
+              </TableRow>
+            </TableHead>
+            <TableBody>
               {
-                columns.map(({ headerName, width, align }) => (
-                  <TableCell sx={{ width }} align={align}>{headerName}</TableCell>
+                cookieData.map(({ key, value, expire }, index) => (
+                  <TableRow >
+                    <TableCell key={`key${index}`}>
+                      <TextField variant="standard" value={key} onChange={(e) => { onFieldChange(e, index, 'key') }} />
+                    </TableCell>
+                    <TableCell key={`value${index}`}>
+                      <TextField variant="standard" value={value} onChange={(e) => { onFieldChange(e, index, 'value') }} />
+                    </TableCell>
+                    <TableCell key={`expired${index}`}>
+                      <TextField variant="standard" select value={expire} onChange={(e) => { onFieldChange(e, index, 'expired') }}>
+                        {
+                          expireOptions.map((options) => (
+                            <MenuItem key={options.value} value={options.value}>{options.label}</MenuItem>
+                          ))
+                        }
+                      </TextField>
+                    </TableCell>
+                    <TableCell align='center'>
+                      <IconButton>
+                        <DeleteTwoTone color="#524A4E" className={styles.deleteIcon} />
+                      </IconButton>
+                    </TableCell>
+                  </TableRow>
                 ))
               }
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {
-              cookieData.map(({ key, value, expire }, index) => (
-                <TableRow key={key}>
-                  <TableCell>
-                    <TextField variant="standard" value={key} />
-                  </TableCell>
-                  <TableCell>
-                    <TextField variant="standard" value={value} />
-                  </TableCell>
-                  <TableCell>
-                    <TextField variant="standard" select defaultValue={30} value={expire} onChange={(e) => { onExpireChange(e, index) }}>
-                      {
-                        expireOptions.map((options) => (
-                          <MenuItem key={options.value} value={options.value}>{options.label}</MenuItem>
-                        ))
-                      }
-                    </TextField>
-                  </TableCell>
-                  <TableCell align='center'>
-                    <DeleteTwoTone color="#524A4E" className={styles.deleteIcon} />
-                  </TableCell>
-                </TableRow>
-              ))
-            }
-          </TableBody>
-        </Table>
-
+            </TableBody>
+          </Table>
+        </div>
         {cookieBtnVisible ? <Button variant='text' onClick={setCookie}>设置Cookie</Button> : null}
 
       </div >
@@ -189,6 +199,7 @@ export default class NewVersion extends Component {
         let url = new URL(tab.url);
         this.setState({ domain: url.hostname })
       }
+
     } catch { }
   }
 }

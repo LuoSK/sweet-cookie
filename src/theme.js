@@ -16,7 +16,7 @@ export const themeOptions = {
       dark: '#8396ff',
     }
   },
-  shadows: Array(24).fill(0),
+  // shadows: Array(24).fill(0),
   components: {
     MuiButton: {
       defaultProps: {
