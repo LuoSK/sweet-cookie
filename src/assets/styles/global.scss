@@ -1,0 +1,26 @@
+.about-dialog-content {
+
+  .version {
+    line-height: 2rem;
+
+    .tag {
+      margin-left: 8px;
+      display: inline-block;
+      line-height: 1.0rem;
+      background-color: #f57c00;
+      border-radius: 4px;
+      padding: 0 4px;
+      color: white;
+    }
+  }
+
+  .info {
+    p {
+      line-height: 2rem;
+    }
+
+    .give-a-star {
+      text-align: center;
+    }
+  }
+}

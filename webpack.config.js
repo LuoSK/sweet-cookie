@@ -6,9 +6,9 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
 
 const MainfestVersionSyncPlugin = require('webpack-manifest-version-sync-plugin')
-const cssGlobalRegex = /\.global\.css$/i
+const cssGlobalRegex = /global\.css$/i
 const cssModuleRegex = /\.css$/i
-const sassGlobalRegex = /\.global\.s[ac]ss$/i
+const sassGlobalRegex = /global\.s[ac]ss$/i
 const sassModuleRegex = /\.s[ac]ss$/i
 
 
@@ -124,6 +124,13 @@ module.exports = {
             }
           }
         ]
+      },
+      {
+        test: /\.(png|svg|jpg|gif)$/i,
+        loader: 'url-loader',
+        options: {
+          limit: 4096
+        }
       }
     ]
   },

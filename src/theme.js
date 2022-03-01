@@ -14,6 +14,10 @@ export const themeOptions = {
     info: {
       main: '#647cff',
       dark: '#8396ff',
+    },
+    light: {
+      main: '#f3f3f3',
+      dark: '#000000',
     }
   },
   // shadows: Array(24).fill(0),
