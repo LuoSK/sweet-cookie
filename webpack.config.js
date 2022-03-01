@@ -13,7 +13,7 @@ const sassModuleRegex = /\.s[ac]ss$/i
 
 
 module.exports = {
-  devtool: 'cheap-module-source-map',
+  devtool: isDev ? 'cheap-module-source-map' : false,
   entry: {
     popup: './src/popup/main.js'
   },

@@ -5,6 +5,7 @@
   "main": "cookies.js",
   "scripts": {
     "dev:pages": "cross-env NODE_ENV=development webpack serve -c webpack.config.js --mode development",
+    "build": "cross-env NODE_ENV=production webpack --mode production",
     "debug": "cross-env NODE_ENV=development node --inspect --inspect-brk node_modules/webpack/bin/webpack.js -c webpack.config.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
