@@ -14,6 +14,7 @@ import {
   IconButton,
 } from '@mui/material'
 import { DeleteTwoTone, AddCircleOutlined } from '@mui/icons-material';
+import jsYaml from 'js-yaml'
 import { Toast } from '@/components'
 import { TEXTAREA_PLACEHOLDER } from '../../../constants'
 import styles from './index.scss'
@@ -41,7 +42,7 @@ export default class NewVersion extends Component {
     }
   }
   render() {
-    const [mode, setMode] = useState('KEY_VALUE')
+    const [mode, setMode] = useState('YAML')
     const onModeChange = (e, value) => {
       if (value == null) return
       setMode(value)
@@ -50,7 +51,7 @@ export default class NewVersion extends Component {
 
     const [placeholder, setPlaceholder] = useState(TEXTAREA_PLACEHOLDER[mode])
 
-    const [cookieVal, setCookieVal] = useState('')
+    const [cookieVal, setCookieVal] = useState('{Accept: "application/json, text/plain, */*", Content-Type: "application/json;charset=utf-8", X-Requested-With: "XMLHttpRequest", Actual-URL: "https://spm-h5-pre.jdl.cn/?userName=huyouliang1&theme=null&language=zh_CN×tamp=1646126883318#/chance/list", LOP-DN: "spm-jm-gray.jd.com", Access-Control-Request-Headers: "third_name,third_token,third_timestamp,third_safetyToken", third_name: "huyouliang1", third_token: "57d1bd5c81be5585aa9342cd2fa96e609152ea", third_timestamp: "1646126883318", third_safetyToken: "e105ad6de0da940dab3abdee8f59a4a2352a1c"}')
 
     const [cookieData, setCookieData] = useState([])
 
@@ -71,6 +72,13 @@ export default class NewVersion extends Component {
         case 'JSON':
           try {
             cookies = JSON.parse(cookieVal)
+          } catch (error) {
+
+          }
+          break
+        case 'YAML':
+          try {
+            cookies = jsYaml.load(cookieVal)
           } catch (error) {
 
           }
@@ -141,7 +149,6 @@ export default class NewVersion extends Component {
 
     return (
       <div className={styles.newVersion} >
-        {/* <button onClick={() => { Toast.success('hahah2222ah') }}>click</button> */}
         <ToggleButtonGroup
           exclusive
           color="primary"
@@ -150,6 +157,7 @@ export default class NewVersion extends Component {
           onChange={onModeChange}
         >
           <ToggleButton value="KEY_VALUE">键值对</ToggleButton>
+          <ToggleButton value="YAML">YAML</ToggleButton>
           <ToggleButton value="JSON">JSON</ToggleButton>
         </ToggleButtonGroup>
 
@@ -160,9 +168,7 @@ export default class NewVersion extends Component {
           onChange={(e) => setCookieVal(e.target.value)}
         />
 
-        <Button variant='text' onClick={onParseClick}>解析</Button>
-
-        {/* <div component="form"> */}
+        <Button variant='outlined' onClick={onParseClick}>解析</Button>
 
         <Table size="small" className={styles.table}>
           <TableHead>
@@ -209,8 +215,7 @@ export default class NewVersion extends Component {
             <AddCircleOutlined />
           </IconButton>
         </div>
-        {/* </div> */}
-        {cookieBtnVisible ? <Button variant='text' onClick={setCookie}>设置Cookie</Button> : null}
+        {cookieBtnVisible ? <Button sx={{ '&.MuiButton-root': { marginTop: '10px', marginBottom: '10px' } }} variant='outlined' onClick={setCookie}>设置Cookie</Button> : null}
       </div >
     )
   }

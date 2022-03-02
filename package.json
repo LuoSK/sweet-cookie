@@ -24,6 +24,7 @@
     "@emotion/styled": "^11.8.1",
     "@mui/icons-material": "^5.4.2",
     "@mui/material": "^5.4.2",
+    "js-yaml": "^4.1.0",
     "preact": "^10.6.5"
   },
   "devDependencies": {
