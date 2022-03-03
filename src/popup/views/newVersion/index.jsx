@@ -51,7 +51,7 @@ export default class NewVersion extends Component {
 
     const [placeholder, setPlaceholder] = useState(TEXTAREA_PLACEHOLDER[mode])
 
-    const [cookieVal, setCookieVal] = useState('{Accept: "application/json, text/plain, */*", Content-Type: "application/json;charset=utf-8", X-Requested-With: "XMLHttpRequest", Actual-URL: "https://spm-h5-pre.jdl.cn/?userName=huyouliang1&theme=null&language=zh_CN×tamp=1646126883318#/chance/list", LOP-DN: "spm-jm-gray.jd.com", Access-Control-Request-Headers: "third_name,third_token,third_timestamp,third_safetyToken", third_name: "huyouliang1", third_token: "57d1bd5c81be5585aa9342cd2fa96e609152ea", third_timestamp: "1646126883318", third_safetyToken: "e105ad6de0da940dab3abdee8f59a4a2352a1c"}')
+    const [cookieVal, setCookieVal] = useState('')
 
     const [cookieData, setCookieData] = useState([])
 
@@ -129,21 +129,27 @@ export default class NewVersion extends Component {
       try {
         const domains = this.state.domain.split('.')
         const setDomain = (domains.length > 2 ? domains.slice(1) : domains).join('.')
+        let hasError = false
         for (const item of cookieData) {
           const expire = item.expire * 24 * 60 * 60 * 1000
-          await chrome.cookies.set({
-            domain: setDomain,
-            name: item.key,
-            value: item.value.toString(),
-            url: `https://${this.state.domain}/`,
-            secure: true,
-            sameSite: 'no_restriction',
-            expirationDate: Date.now() + expire
-          })
+          try {
+            await chrome.cookies.set({
+              domain: setDomain,
+              name: item.key,
+              value: item.value.toString(),
+              url: `https://${this.state.domain}/`,
+              secure: true,
+              sameSite: 'no_restriction',
+              expirationDate: Date.now() + expire
+            })
+          } catch (error) {
+            hasError = true
+            Toast.error(error.message)
+          }
         }
-        Toast.success('successed')
+        !hasError && (Toast.success('解析完成'))
       } catch (error) {
-        Toast.error(error)
+        Toast.error(error.message)
       }
     }
 
