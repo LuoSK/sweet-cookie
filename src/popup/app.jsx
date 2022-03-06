@@ -82,7 +82,7 @@ export default class App extends Component {
     const onMenuItemClick = (type) => {
       switch (type) {
         case 'help':
-          window.open('https://github.com/LuoSK/sweet-cookie/blob/preact/README.md')
+          window.open('https://github.com/LuoSK/sweet-cookie/blob/main/README.md')
           break
         case 'feedback':
           window.open('https://github.com/LuoSK/sweet-cookie/issues/new')
