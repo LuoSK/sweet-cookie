@@ -49,8 +49,8 @@
 ```json
 # JSON
 {
-  name: "John",
-  age: 18
+  "name": "John",
+  "age": 18
 }
 ```
 ```key
