@@ -7,13 +7,15 @@
 	<p>用于快速解析编辑Cookie的浏览器插件</p>
 </div>
 
+<br />
+
 ## 🔗 快速跳转
 
 - [特性](#特性)
 - [浏览器支持](#浏览器支持)
 - [如何安装](#如何安装)
 - [使用](#使用)
-- [常见问题-FAQ](#常见问题-FAQ)
+- [常见问题](#常见问题)
 - [版本变化](#版本变化)
 - [报告问题](#报告问题)
 ## ✨ 特性
@@ -25,7 +27,7 @@
 
 <br />
 
-## 🖥️ 浏览器支持
+## 💻 浏览器支持
 
 | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" class="jop-noMdConv">](http://godban.github.io/browsers-support-badges/)<br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" class="jop-noMdConv">](http://godban.github.io/browsers-support-badges/)<br>Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" class="jop-noMdConv">](http://godban.github.io/browsers-support-badges/)<br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" class="jop-noMdConv">](http://godban.github.io/browsers-support-badges/)<br>Safari |
 | --- | --- | --- | --- |
@@ -33,7 +35,7 @@
 
 <br />
 
-## 使用
+## 📕 使用
 
 1. 请先选择解析格式，解析格式不正确，会导致无法解析~
 
@@ -46,8 +48,8 @@
 }
 ```
 
-```json
-# JSON
+```json5
+/* json */
 {
   "name": "John",
   "age": 18
@@ -68,14 +70,14 @@ name=john; age=20;
 
 <br />
 
-## ℹ️ 常见问题-FAQ
+## ❓ 常见问题
 
 1.  <img src="https://raw.githubusercontent.com/LuoSK/assets/main/img/warning1.png" alt="" width="162" height="71">
     请先检查value的格式正确，浏览器可能并不支持某些value值，例如value中含有`=` `;` 等特殊字符。某个字段的设置错误，不会影响其他字段的设置
 
 <br />
 
-## 版本变化
+## 🚩 版本变化
 
 ### 🔖 Version 1.0.0
 
