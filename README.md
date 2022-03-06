@@ -63,7 +63,8 @@ name=john; age=20;
 ## 📦 如何安装
 
 插件商店：[chrome webstore](https://chrome.google.com/webstore/detail/sweet-cookie/ljoobagfjndhnpgcgcfcioecilnnmfid/evaluated)
-下载安装：[release](!https://github.com/LuoSK/sweet-cookie/releases/tag/v1.0.0)
+
+下载安装：[release](https://github.com/LuoSK/sweet-cookie/releases/tag/v1.0.0)
 
 <br />
 
