@@ -45,8 +45,7 @@ export const themeOptions = {
     },
     MuiFormControl: {
       defaultProps: {
-        size: 'small',
-        margin: 'dense'
+        size: 'medium',
       }
     },
     MuiFormHelperText: {
@@ -62,6 +61,11 @@ export const themeOptions = {
     MuiInputBase: {
       defaultProps: {
         size: 'small'
+      }
+    },
+    MuiRadio: {
+      defaultProps: {
+        size: '12'
       }
     },
     MuiIconButton: {

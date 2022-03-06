@@ -140,7 +140,6 @@ module.exports = {
       filename: 'popup.html',
       chunks: ['popup']
     }),
-    new CleanWebpackPlugin(),
     new CopyPlugin({
       patterns: [
         {
@@ -153,7 +152,10 @@ module.exports = {
         }
       ]
     }),
-    new MainfestVersionSyncPlugin() // 同步package版本号
+    new MainfestVersionSyncPlugin(), // 同步package版本号
+    new CleanWebpackPlugin({
+      cleanAfterEveryBuildPatterns: [path.resolve(__dirname, 'dist/popup.js.LICENSE.txt')],
+    }),
   ],
   devServer: {
     hot: true,

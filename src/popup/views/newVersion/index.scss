@@ -2,7 +2,7 @@
 
 .newVersion {
   overflow-y: overlay;
-  padding: 16px 8px 8px 8px;
+  padding: 6px 8px 8px 8px;
   height: 510px;
   // padding: 8px 10px;
   display: flex;
@@ -31,15 +31,16 @@
     background: #179a16;
   }
 
-  .toogleButtonGroup {
-    margin-bottom: 10px;
-
+  .radioGroup {
     display: flex;
     justify-content: center;
+    align-items: center;
+    font-size: 0.8rem;
+    line-height: 1.5;
 
-    :global(.MuiToggleButton-root) {
-      line-height: 8px;
-      font-size: 10px;
+    :global(.MuiFormLabel-root) {
+      font-size: 0.8rem;
+      line-height: 1.5;
     }
   }
 

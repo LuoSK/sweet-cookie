@@ -71,7 +71,7 @@ class _Toast {
     ReactDOM.render(<Toast type={type}>{content}</Toast>, element)
     setTimeout(() => {
       this.container.removeChild(element)
-    }, 1500)
+    }, 2000)
   }
 
   static success(title) {

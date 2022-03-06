@@ -3,7 +3,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles'
 import { useState } from 'preact/hooks'
 import { Button, IconButton, Menu, MenuItem, MenuList, ListItemIcon, Dialog, DialogTitle, DialogContent } from '@mui/material'
 import { styled } from '@mui/material/styles'
-import { SettingsOutlined, InfoOutlined, MenuBookRounded, GitHub, BugReport, Close } from '@mui/icons-material'
+import { SettingsOutlined, InfoOutlined, MenuBookRounded, BugReport, Close } from '@mui/icons-material'
 import OldVersion from './views/oldVersion'
 import NewVersion from './views/newVersion'
 import styles from './app.scss'
@@ -107,6 +107,16 @@ export default class App extends Component {
               <span>
                 SWEET COOKIE
               </span>
+              {
+                isNew ? (<Button
+                  variant='text'
+                  className={styles.newInfo}
+                  color="light"
+                  onClick={() => { onMenuItemClick('help') }}
+                >
+                  新版说明
+                </Button>) : null
+              }
             </div>
             <div className='right'>
               <Button variant='text' color="light" onClick={changeVersion}>使用{isNew ? '旧版' : '新版'}</Button>
@@ -132,7 +142,7 @@ export default class App extends Component {
                   <ListItemIcon>
                     <MenuBookRounded fontSize="small" />
                   </ListItemIcon>
-                  帮助
+                  使用说明
                 </MenuItem>
                 <MenuItem onClick={() => { onMenuItemClick('feedback') }}>
                   <ListItemIcon>

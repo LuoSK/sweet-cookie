@@ -8,10 +8,13 @@ import {
   TableHead,
   TableBody,
   TextField,
-  ToggleButton,
-  ToggleButtonGroup,
   MenuItem,
   IconButton,
+  Radio,
+  RadioGroup,
+  FormControl,
+  FormControlLabel,
+  FormLabel
 } from '@mui/material'
 import { DeleteTwoTone, AddCircleOutlined } from '@mui/icons-material';
 import jsYaml from 'js-yaml'
@@ -34,6 +37,11 @@ const columns = [
   { field: 'action', headerName: '操作', align: 'center' }
 ]
 
+const modeEnums = [
+  { label: '键值对', value: 'KEY_VALUE' },
+  { label: 'YAML', value: 'YAML' },
+  { label: 'JSON', value: 'JSON' }
+]
 export default class NewVersion extends Component {
   constructor(props) {
     super(props)
@@ -43,7 +51,8 @@ export default class NewVersion extends Component {
   }
   render() {
     const [mode, setMode] = useState('YAML')
-    const onModeChange = (e, value) => {
+    const onModeChange = (e) => {
+      const value = e.target.value
       if (value == null) return
       setMode(value)
       setPlaceholder(TEXTAREA_PLACEHOLDER[value])
@@ -129,7 +138,7 @@ export default class NewVersion extends Component {
       try {
         const domains = this.state.domain.split('.')
         const setDomain = (domains.length > 2 ? domains.slice(1) : domains).join('.')
-        let hasError = false
+        const errors = []
         for (const item of cookieData) {
           const expire = item.expire * 24 * 60 * 60 * 1000
           try {
@@ -143,11 +152,21 @@ export default class NewVersion extends Component {
               expirationDate: Date.now() + expire
             })
           } catch (error) {
-            hasError = true
-            Toast.error(error.message)
+            errors.push(error.message)
           }
         }
-        !hasError && (Toast.success('解析完成'))
+        if (errors.length > 0) {
+          const keys = []
+          errors.forEach((error) => {
+            const result = error.match(/"(.+)"/)
+            if (result && result[1]) {
+              keys.push(result[1])
+            }
+          })
+          Toast.warning('设置完成，但' + keys.join(',') + '设置失败，请检查值的正确性')
+        } else {
+          Toast.success('设置完成')
+        }
       } catch (error) {
         Toast.error(error.message)
       }
@@ -155,7 +174,7 @@ export default class NewVersion extends Component {
 
     return (
       <div className={styles.newVersion} >
-        <ToggleButtonGroup
+        {/* <ToggleButtonGroup
           exclusive
           color="primary"
           className={styles.toogleButtonGroup}
@@ -165,15 +184,31 @@ export default class NewVersion extends Component {
           <ToggleButton value="KEY_VALUE">键值对</ToggleButton>
           <ToggleButton value="YAML">YAML</ToggleButton>
           <ToggleButton value="JSON">JSON</ToggleButton>
-        </ToggleButtonGroup>
-
+        </ToggleButtonGroup> */}
+        <div className={styles.radioGroup}>
+          <FormLabel>解析格式：</FormLabel>
+          <RadioGroup
+            row
+            value={mode}
+            onChange={onModeChange}
+          >
+            {
+              modeEnums.map(({ label, value }) => (
+                <FormControlLabel sx={{
+                  '& .MuiTypography-root': {
+                    fontSize: '0.8rem'
+                  }
+                }} label={label} value={value} control={<Radio size="12" />} />
+              ))
+            }
+          </RadioGroup>
+        </div>
         <textarea
           value={cookieVal}
           className={styles.textarea}
           placeholder={placeholder}
           onChange={(e) => setCookieVal(e.target.value)}
         />
-
         <Button variant='outlined' onClick={onParseClick}>解析</Button>
 
         <Table size="small" className={styles.table}>
