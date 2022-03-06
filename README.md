@@ -8,16 +8,15 @@
 </div>
 
 ## 🔗 快速跳转
-* * *
 
 - [特性](#特性)
 - [浏览器支持](#浏览器支持)
 - [如何安装](#如何安装)
+- [使用](#使用)
 - [常见问题-FAQ](#常见问题-FAQ)
 - [版本变化](#版本变化)
 - [报告问题](#报告问题)
 ## ✨ 特性
-* * *
 
 - 快速解析cookie，自动种到当前域
 - 支持 KEY-VALUE/ JSON / YAML 格式解析
@@ -28,26 +27,47 @@
 
 ## 🖥️ 浏览器支持
 
-* * *
-
 | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" class="jop-noMdConv">](http://godban.github.io/browsers-support-badges/)<br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" class="jop-noMdConv">](http://godban.github.io/browsers-support-badges/)<br>Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" class="jop-noMdConv">](http://godban.github.io/browsers-support-badges/)<br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" class="jop-noMdConv">](http://godban.github.io/browsers-support-badges/)<br>Safari |
 | --- | --- | --- | --- |
 | >=96✅ | &nbsp;&nbsp;❔ | &nbsp;&nbsp;&nbsp;✖️| &nbsp;&nbsp;✖️  |
 
 <br />
 
+## 使用
+
+1. 请先选择解析格式，解析格式不正确，会导致无法解析~
+
+2. 解析格式样例
+``` yaml
+# yaml
+{
+  Math-Socre: "96",
+  name: "Hiphop"
+}
+```
+
+```json
+# JSON
+{
+  name: "John",
+  age: 18
+}
+```
+```key
+# key-value
+name=john; age=20;
+```
+
+<br/>
+
 ## 📦 如何安装
 
-* * *
-
-插件商店：
-下载安装：
+插件商店：[chrome webstore](https://chrome.google.com/webstore/detail/sweet-cookie/ljoobagfjndhnpgcgcfcioecilnnmfid/evaluated)
+下载安装：[release](!https://github.com/LuoSK/sweet-cookie/releases/tag/v1.0.0)
 
 <br />
 
 ## ℹ️ 常见问题-FAQ
-
-* * *
 
 1.  <img src="https://raw.githubusercontent.com/LuoSK/assets/main/img/warning1.png" alt="" width="162" height="71">
     请先检查value的格式正确，浏览器可能并不支持某些value值，例如value中含有`=` `;` 等特殊字符。某个字段的设置错误，不会影响其他字段的设置
@@ -55,8 +75,6 @@
 <br />
 
 ## 版本变化
-
-* * *
 
 ### 🔖 Version 1.0.0
 
@@ -74,8 +92,6 @@
 <br />
 
 ## 🐛 报告问题
-
-* * *
 
 邮箱：📨 [bjchensiyuan@gmail.com](mailto:bjchensiyuan@gmail.com)
 前往提问： 🚩[issue](https://github.com/LuoSK/sweet-cookie/issues/new)
